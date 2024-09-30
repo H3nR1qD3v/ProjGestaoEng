@@ -44,7 +44,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Início</a>
+                        <a class="nav-link" href="#">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Projetos</a>
@@ -68,7 +68,7 @@
     <!-- Rodapé -->
     <footer class="text-center mt-auto">
         <div class="container">
-            <p class="footer-text">&copy; 2024 Engenharia Proj - Todos os direitos reservados.</p>
+            <p class="footer-text">&copy; 2024 EngFlow - Todos os direitos reservados.</p>
         </div>
     </footer>
 

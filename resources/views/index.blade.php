@@ -1,6 +1,6 @@
 @extends('layout') <!-- Referência ao layout -->
 
-@section('title', 'Página Inicial') <!-- Título da página -->
+@section('title', 'EngFlow') <!-- Título da página -->
 
 @section('content') <!-- Conteúdo da página -->
     <h1>Bem-vindo ao EngFlow!</h1>

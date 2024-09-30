@@ -3,62 +3,89 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Exibe uma lista de todos os clientes
     public function index()
     {
-        //
+        $clientes = Cliente::all();
+        return view('listaCliente', compact('clientes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Criação de Clientes
     public function create()
     {
-        //
+        return view('cadastroCliente');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+    //Armazena novo cliente
     public function store(Request $request)
     {
-        //
+        $cliente = new Cliente();
+
+        $cliente->nome = $request->input('nome');
+        $cliente->cpf = $request->input('cpf');
+        $cliente->data_nascimento = $request->input('data_nascimento');
+        $cliente->telefone = $request->input('telefone');
+        $cliente->numero_residencia = $request->input('numero_residencia');
+        $cliente->rua = $request->input('rua');
+        $cliente->bairro = $request->input('bairro');
+        $cliente->cidade = $request->input('cidade');
+        $cliente->uf = $request->input('uf');
+        $cliente->cep = $request->input('cep');
+        $cliente->complemento = $request->input('complemento');
+        $cliente->data_cadastro = $request->input('data_cadastro');
+
+        $cliente->save();
+
+        return redirect()->route('listaCliente')->with('sucess', 'Cliente cadastrado com sucesso!');
+
+
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    //Atualiza um registro
     public function update(Request $request, string $id)
     {
-        //
+        $idRequest = $request->input('id');
+
+        $cliente = Cliente::where('id', $idRequest)->first();
+
+        if ($cliente) {
+            $cliente->nome = $request->input('nome');
+            $cliente->cpf = $request->input('cpf');
+            $cliente->data_nascimento = $request->input('data_nascimento');
+            $cliente->telefone = $request->input('telefone');
+            $cliente->numero_residencia = $request->input('numero_residencia');
+            $cliente->rua = $request->input('rua');
+            $cliente->bairro = $request->input('bairro');
+            $cliente->cidade = $request->input('cidade');
+            $cliente->uf = $request->input('uf');
+            $cliente->cep = $request->input('cep');
+            $cliente->complemento = $request->input('complemento');
+            $cliente->data_cadastro = $request->input('data_cadastro');
+
+            $cliente->save();
+
+            return redirect()->route('listaCliente')->with('sucess','Cliente atualizado com sucesso!');
+
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    //Exclui um registro
+    public function delete(Request $request)
     {
-        //
+        $id = $request->input("idDelete");
+        $cliente = Cliente::findOrFail($id);
+        $cliente->delete();
+        return redirect()->route('listaCliente')->with('sucess', 'Cliente excluído com sucesso');
     }
 }
