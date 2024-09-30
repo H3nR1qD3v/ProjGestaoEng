@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('funcionario', function (Blueprint $table) {
             $table->id();
+            $table->string('nome', 100);
+            $table->string('cargo', 50);
+            $table->string('email', 50);
+            $table->string('password');
+            $table->enum('perfil_acesso', ['socio', 'funcionario']);
         });
     }
 
