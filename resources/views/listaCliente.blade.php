@@ -6,7 +6,7 @@
     <h1>Lista de Clientes</h1>
 
     <div class="mt-4">
-        <a href="{{ route('clientes.create') }}" class="btn btn-primary">Cadastrar Novo Cliente</a> <!-- Botão para cadastrar cliente -->
+        <a href="/clientes/create" class="btn btn-primary">Cadastrar Novo Cliente</a> <!-- Botão para cadastrar cliente -->
         <table class="table mt-3">
             <thead>
                 <tr>
@@ -42,8 +42,8 @@
                         <td>{{ \Carbon\Carbon::parse($cliente->data_cadastro)->format('d/m/Y') }}</td>
                         <td>
                             <!-- Ações, como editar ou excluir -->
-                            <a href="{{ route('clientes.edit', $cliente->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                            <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST" style="display:inline;">
+                            <a href="/clientes/edit/{{$cliente->id}}" class="btn btn-warning btn-sm">Editar</a>
+                            <form action="/clientes/{{ $cliente->id }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">Excluir</button>

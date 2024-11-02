@@ -44,16 +44,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Projetos</a>
+                        <a class="nav-link" href="/projetos">Projetos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Clientes</a>
+                        <a class="nav-link" href="/clientes">Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Funcionários</a>
+                        <a class="nav-link" href="/funcionarios">Funcionários</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/movimentacoes">Finanças</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/situacoes">Situações</a>
                     </li>
                 </ul>
             </div>

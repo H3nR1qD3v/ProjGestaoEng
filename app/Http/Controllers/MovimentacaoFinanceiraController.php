@@ -3,62 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\MovimentacaoFinanceira;
 
 class MovimentacaoFinanceiraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Exibe todas as movimentações
     public function index()
     {
-        //
+        $movimentacoes = MovimentacaoFinanceira::all();
+        return view('listaMovimentacao', compact('movimentacoes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Exibe o formulário para criar uma nova movimentação
     public function create()
     {
-        //
+        return view('cadastroMovimentacao');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Armazena uma nova movimentação
     public function store(Request $request)
     {
-        //
+        MovimentacaoFinanceira::create($request->all());
+        return redirect('/movimentacoes')->with('success', 'Movimentação cadastrada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Exibe o formulário de edição de uma movimentação
+    public function edit($id)
     {
-        //
+        $movimentacao = MovimentacaoFinanceira::findOrFail($id);
+        return view('editaMovimentacao', compact('movimentacao'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Atualiza uma movimentação existente
+    public function update(Request $request, $id)
     {
-        //
+        MovimentacaoFinanceira::findOrFail($id)->update($request->all());
+        return redirect('/movimentacoes')->with('success', 'Movimentação atualizada com sucesso!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Exclui uma movimentação
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        MovimentacaoFinanceira::findOrFail($id)->delete();
+        return redirect('/movimentacoes')->with('success', 'Movimentação excluída com sucesso!');
     }
 }

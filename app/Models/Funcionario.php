@@ -11,6 +11,7 @@ class Funcionario extends Authenticatable
     use HasFactory;
 
     protected $table = 'funcionario';
+    public $timestamps = false;
 
     protected $fillable = [
         'nome',

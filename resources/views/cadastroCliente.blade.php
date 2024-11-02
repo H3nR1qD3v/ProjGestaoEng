@@ -5,7 +5,7 @@
 @section('content') <!-- Conteúdo da página -->
     <h1>Cadastrar Novo Cliente</h1>
 
-    <form action="{{ route('clientes.store') }}" method="POST">
+    <form action="/clientes/store" method="POST">
         @csrf
         <div class="form-group">
             <label for="nome">Nome</label>

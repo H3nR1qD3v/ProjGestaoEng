@@ -3,62 +3,50 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\SituacaoProjeto;
 
 class SituacaoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Exibe uma lista de todas as situações
     public function index()
     {
-        //
+        $situacoes = SituacaoProjeto::all();
+        return view('listaSituacao', compact('situacoes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Criação de Situações
     public function create()
     {
-        //
+        return view('cadastroSituacao');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Armazena nova situação
     public function store(Request $request)
     {
-        //
+        $situacao = new SituacaoProjeto();
+        $situacao->descricao_situacao = $request->input('descricao_situacao');
+        $situacao->save();
+
+        return redirect('/situacoes')->with('success', 'Situação cadastrada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $situacao = SituacaoProjeto::findOrFail($id);
+        return view('editaSituacao', ['situacao' => $situacao]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Atualiza um registro
+    public function update(Request $request, $id)
     {
-        //
+        SituacaoProjeto::findOrFail($id)->update($request->all());
+        return redirect('/situacoes')->with('success', 'Situação atualizada com sucesso!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Exclui um registro
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        SituacaoProjeto::findOrFail($id)->delete();
+        return redirect('/situacoes')->with('success', 'Situação excluída com sucesso!');
     }
 }

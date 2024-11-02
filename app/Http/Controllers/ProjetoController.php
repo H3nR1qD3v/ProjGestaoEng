@@ -3,62 +3,57 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Projeto;
+use App\Models\Cliente;
+use App\Models\SituacaoProjeto;
+use App\Models\TipoProjeto;
 
 class ProjetoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Exibe todos os projetos
     public function index()
     {
-        //
+        $projetos = Projeto::with(['cliente', 'situacao', 'tipoProjeto'])->get();
+        return view('listaProjeto', compact('projetos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Exibe o formulário para criar um novo projeto
     public function create()
     {
-        //
+        $clientes = Cliente::all();
+        $situacoes = SituacaoProjeto::all();
+        $tipos = TipoProjeto::all();
+        return view('cadastroProjeto', compact('clientes', 'situacoes', 'tipos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Armazena um novo projeto
     public function store(Request $request)
     {
-        //
+        Projeto::create($request->all());
+        return redirect('/projetos')->with('success', 'Projeto cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Exibe o formulário de edição de um projeto
+    public function edit($id)
     {
-        //
+        $projeto = Projeto::findOrFail($id);
+        $clientes = Cliente::all();
+        $situacoes = SituacaoProjeto::all();
+        $tipos = TipoProjeto::all();
+        return view('editaProjeto', compact('projeto', 'clientes', 'situacoes', 'tipos'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Atualiza um projeto existente
+    public function update(Request $request, $id)
     {
-        //
+        Projeto::findOrFail($id)->update($request->all());
+        return redirect('/projetos')->with('success', 'Projeto atualizado com sucesso!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Exclui um projeto
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Projeto::findOrFail($id)->delete();
+        return redirect('/projetos')->with('success', 'Projeto excluído com sucesso!');
     }
 }

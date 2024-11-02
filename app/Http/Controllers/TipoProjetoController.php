@@ -3,62 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TipoProjeto;
 
 class TipoProjetoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Exibe uma lista de todos os tipos de projeto
     public function index()
     {
-        //
+        $tipos = TipoProjeto::all();
+        return view('listaTipoProjeto', compact('tipos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Criação de Tipo de Projeto
     public function create()
     {
-        //
+        return view('cadastroTipoProjeto');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Armazena novo tipo de projeto
     public function store(Request $request)
     {
-        //
+        $tipo = new TipoProjeto();
+
+        $tipo->descricao_tipo = $request->input('descricao_tipo');
+        $tipo->save();
+
+        return redirect('/tipos-projeto');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $tipo = TipoProjeto::findOrFail($id);
+        return view('editaTipoProjeto', ['tipo' => $tipo]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Atualiza um registro
+    public function update(Request $request)
     {
-        //
+        TipoProjeto::findOrFail($request->id)->update($request->all());
+        return redirect('/tipos-projeto');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Exclui um registro
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        TipoProjeto::findOrFail($id)->delete();
+        return redirect('/tipos-projeto');
     }
 }
