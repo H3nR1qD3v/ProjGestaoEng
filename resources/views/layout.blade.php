@@ -30,6 +30,14 @@
             color: #6c757d;
             font-size: 0.9rem;
         }
+        /* Ajuste para os itens da navbar */
+        .navbar-nav .nav-item {
+            margin-right: 15px;
+        }
+
+        .navbar-nav .nav-item:last-child {
+            margin-right: 0;
+        }
     </style>
 </head>
 <body>
@@ -60,6 +68,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/situacoes">Situações</a>
+                    </li>
+
+                    <!-- Botão de logout -->
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-link nav-link">Sair</button>
+                        </form>
                     </li>
                 </ul>
             </div>

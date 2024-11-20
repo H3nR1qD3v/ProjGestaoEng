@@ -2,33 +2,44 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Funcionario extends Authenticatable
 {
-    use HasFactory;
+    use Notifiable;
 
     protected $table = 'funcionario';
-    public $timestamps = false;
 
+    /**
+     * Os atributos que podem ser atribuídos em massa.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
-        'nome',
-        'cargo',
+        'nome',         // Ajuste os campos conforme sua tabela
         'email',
         'password',
-        'perfil_acesso'
+        'cargo',
+        'perfil_acesso',
     ];
 
-    // Esconde campos sensíveis 
+    /**
+     * Os atributos que devem ser ocultados na serialização.
+     *
+     * @var array<int, string>
+     */
     protected $hidden = [
-        'password'
+        'password',
+        'remember_token',
     ];
 
-    // Definir o tipo de dados dos campos
+    /**
+     * Os atributos que devem ser convertidos em tipos nativos.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
-        'perfil_acesso' => 'string',
+        'email_verified_at' => 'datetime',
     ];
 }
-
