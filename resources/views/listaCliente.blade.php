@@ -1,52 +1,76 @@
-@extends('layout') <!-- Referência ao layout -->
+@extends('layout')
 
-@section('title', 'Lista de Clientes') <!-- Título da página -->
+@section('title', 'Clientes')
 
-@section('content') <!-- Conteúdo da página -->
-    <h1>Lista de Clientes</h1>
+@section('content')
+<div class="container mt-5">
+    <h1 class="mb-4">Clientes</h1>
 
-    <div class="mt-4">
-        <a href="/clientes/create" class="btn btn-primary">Cadastrar Novo Cliente</a> <!-- Botão para cadastrar cliente -->
-        <table class="table mt-3">
-            <thead>
+    <!-- Botão para cadastrar um novo cliente -->
+    <a href="/clientes/create" class="btn btn-success mb-3">Novo Cliente</a>
+
+    <!-- Tabela de clientes com filtros -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
                 <tr>
                     <th>Nome</th>
                     <th>CPF</th>
-                    <th>Data Nascimento</th>
                     <th>Telefone</th>
-                    <th>Nº Residência</th>
-                    <th>Rua</th>
-                    <th>Bairro</th>
-                    <th>Cidade</th>
-                    <th>UF</th>
-                    <th>CEP</th>
-                    <th>Complemento</th>
+                    <th>Data Nascimento</th>
                     <th>Data Cadastro</th>
                     <th>Ações</th>
+                </tr>
+                <tr>
+                    <!-- Filtros de pesquisa -->
+                    <form method="GET" action="{{ route('clientes.index') }}">
+                        <th>
+                            <input type="text" name="nome" class="form-control" placeholder="Buscar nome" value="{{ request('nome') }}">
+                        </th>
+                        <th>
+                            <input type="text" name="cpf" class="form-control" placeholder="Buscar CPF" value="{{ request('cpf') }}">
+                        </th>
+                        <th>
+                            <input type="text" name="telefone" class="form-control" placeholder="Buscar telefone" value="{{ request('telefone') }}">
+                        </th>
+                        <th>
+                            <input type="date" name="data_nascimento" class="form-control" value="{{ request('data_nascimento') }}">
+                        </th>
+                        <th>
+                            <input type="date" name="data_cadastro" class="form-control" value="{{ request('data_cadastro') }}">
+                        </th>
+                        <th>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-search"></i> Filtrar
+                            </button>
+                        </th>
+                    </form>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($clientes as $cliente)
                     <tr>
-                        <td>{{ $cliente->nome }}</td>
-                        <td>{{ $cliente->cpf }}</td>
-                        <td>{{ \Carbon\Carbon::parse($cliente->data_nascimento)->format('d/m/Y') }}</td>
-                        <td>{{ $cliente->telefone }}</td>
-                        <td>{{ $cliente->numero_residencia }}</td>
-                        <td>{{ $cliente->rua }}</td>
-                        <td>{{ $cliente->bairro }}</td>
-                        <td>{{ $cliente->cidade }}</td>
-                        <td>{{ $cliente->uf }}</td>
-                        <td>{{ $cliente->cep }}</td>
-                        <td>{{ $cliente->complemento }}</td>
-                        <td>{{ \Carbon\Carbon::parse($cliente->data_cadastro)->format('d/m/Y') }}</td>
-                        <td>
-                            <!-- Ações, como editar ou excluir -->
-                            <a href="/clientes/edit/{{$cliente->id}}" class="btn btn-warning btn-sm">Editar</a>
+                        <td class="text-center">{{ $cliente->nome }}</td>
+                        <!-- Exibindo CPF com formatação -->
+                        <td class="text-center">
+                            {{ substr($cliente->cpf, 0, 3) . '.' . substr($cliente->cpf, 3, 3) . '.' . substr($cliente->cpf, 6, 3) . '-' . substr($cliente->cpf, 9, 2) }}
+                        </td>
+                        <!-- Exibindo Telefone com formatação -->
+                        <td class="text-center">
+                            {{ '(' . substr($cliente->telefone, 0, 2) . ') ' . substr($cliente->telefone, 2, 5) . '-' . substr($cliente->telefone, 7, 4) }}
+                        </td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($cliente->data_nascimento)->format('d/m/Y') }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($cliente->data_cadastro)->format('d/m/Y') }}</td>
+                        <td class="text-center">
+                            <a href="/clientes/edit/{{ $cliente->id }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
                             <form action="/clientes/{{ $cliente->id }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -54,4 +78,6 @@
             </tbody>
         </table>
     </div>
+</div>
+
 @endsection

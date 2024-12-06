@@ -82,6 +82,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('index');
     });
+
+    //FILTROS
+
+    Route::get('/projetos', [ProjetoController::class, 'index'])->name('projetos.index');
+    Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+    Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('funcionarios.index');
+    Route::get('/movimentacoes', [MovimentacaoFinanceiraController::class, 'index'])->name('movimentacoes.index');
+    Route::get('/situacoes', [SituacaoController::class, 'index'])->name('situacoes.index');
+    Route::get('/tipos-projeto', [TipoProjetoController::class, 'index'])->name('tipos-projeto.index');
 });
 
 // Rotas de autenticação geradas pelo Breeze

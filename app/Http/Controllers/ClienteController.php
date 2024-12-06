@@ -8,12 +8,34 @@ use App\Models\Cliente;
 class ClienteController extends Controller
 {
     // Exibe uma lista de todos os clientes
-    public function index()
-    {
-        $clientes = Cliente::all();
-        return view('listaCliente', compact('clientes'));
+    public function index(Request $request)
+{
+    $clientes = Cliente::query();
+
+    if ($request->filled('nome')) {
+        $clientes->where('nome', 'like', '%' . $request->nome . '%');
     }
 
+    if ($request->filled('cpf')) {
+        $clientes->where('cpf', 'like', '%' . $request->cpf . '%');
+    }
+
+    if ($request->filled('telefone')) {
+        $clientes->where('telefone', 'like', '%' . $request->telefone . '%');
+    }
+
+    if ($request->filled('data_nascimento')) {
+        $clientes->whereDate('data_nascimento', '=', $request->data_nascimento);
+    }
+
+    if ($request->filled('data_cadastro')) {
+        $clientes->whereDate('data_cadastro', '=', $request->data_cadastro);
+    }
+
+    $clientes = $clientes->get();
+
+    return view('listaCliente', compact('clientes'));
+}
     // Criação de Clientes
     public function create()
     {

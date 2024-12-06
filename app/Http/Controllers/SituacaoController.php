@@ -8,9 +8,16 @@ use App\Models\SituacaoProjeto;
 class SituacaoController extends Controller
 {
     // Exibe uma lista de todas as situações
-    public function index()
+    public function index(Request $request)
     {
-        $situacoes = SituacaoProjeto::all();
+        $query = SituacaoProjeto::query();
+
+        // Verifica se foi enviado um filtro pela descrição
+        if ($request->filled('descricao_situacao')) {
+            $query->where('descricao_situacao', 'like', '%' . $request->input('descricao_situacao') . '%');
+        }
+
+        $situacoes = $query->get();
         return view('listaSituacao', compact('situacoes'));
     }
 

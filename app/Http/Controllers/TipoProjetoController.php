@@ -8,9 +8,17 @@ use App\Models\TipoProjeto;
 class TipoProjetoController extends Controller
 {
     // Exibe uma lista de todos os tipos de projeto
-    public function index()
+    public function index(Request $request)
     {
-        $tipos = TipoProjeto::all();
+        $query = TipoProjeto::query();
+
+        // Aplicando filtros, se houver
+        if ($request->filled('descricao_tipo')) {
+            $query->where('descricao_tipo', 'like', '%' . $request->input('descricao_tipo') . '%');
+        }
+
+        $tipos = $query->get();
+
         return view('listaTipoProjeto', compact('tipos'));
     }
 

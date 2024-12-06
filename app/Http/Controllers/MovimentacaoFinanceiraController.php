@@ -8,11 +8,37 @@ use App\Models\MovimentacaoFinanceira;
 class MovimentacaoFinanceiraController extends Controller
 {
     // Exibe todas as movimentações
-    public function index()
+    public function index(Request $request)
     {
-        $movimentacoes = MovimentacaoFinanceira::all();
+        $query = MovimentacaoFinanceira::query();
+
+        // Filtra por tipo
+        if ($request->has('tipo') && $request->tipo != '') {
+            $query->where('tipo', $request->tipo);
+        }
+
+        // Filtra por valor
+        if ($request->has('valor') && $request->valor != '') {
+            $query->where('valor', 'like', '%' . $request->valor . '%');
+        }
+
+        // Filtra por descrição
+        if ($request->has('descricao') && $request->descricao != '') {
+            $query->where('descricao', 'like', '%' . $request->descricao . '%');
+        }
+
+        // Filtra por data
+        if ($request->has('data') && $request->data != '') {
+            $query->whereDate('data', $request->data);
+        }
+
+        // Executa a consulta
+        $movimentacoes = $query->get();
+
+        // Retorna a view com os dados filtrados
         return view('listaMovimentacao', compact('movimentacoes'));
     }
+
 
     // Exibe o formulário para criar uma nova movimentação
     public function create()

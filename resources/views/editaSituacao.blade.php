@@ -1,9 +1,10 @@
 @extends('layout')
 
-@section('title', 'Edita Situação')
+@section('title', 'Editar Situação')
 
 @section('content')
-    <h1>Editar Situação</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Editar Situação</h1>
 
     <form action="/situacoes/update/{{$situacao->id}}" method="POST">
         @csrf
@@ -11,9 +12,13 @@
 
         <div class="form-group">
             <label for="descricao_situacao">Descrição da Situação</label>
-            <input type="text" class="form-control" id="descricao_situacao" name="descricao_situacao" required value="{{$situacao->descricao_situacao}}">
+            <input type="text" class="form-control" id="descricao_situacao" name="descricao_situacao" placeholder="Digite a descrição da situação" required value="{{ $situacao->descricao_situacao }}">
         </div>
-
-        <button type="submit" class="btn btn-success mt-3">Atualizar</button>
+        <div class="mt-3">
+            <!-- Botões de Ação -->
+            <button type="submit" class="btn btn-success">Atualizar</button>
+            <a href="/situacoes" class="btn btn-secondary">Cancelar</a>
+        </div>
     </form>
+</div>
 @endsection

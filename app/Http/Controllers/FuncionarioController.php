@@ -8,9 +8,26 @@ use App\Models\Funcionario;
 class FuncionarioController extends Controller
 {
     // Exibe uma lista de todos os funcionários
-    public function index()
+    public function index(Request $request)
     {
-        $funcionarios = Funcionario::all();
+        $query = Funcionario::query();
+    
+        // Aplicando filtro por nome, cargo e perfil de acesso
+        if ($request->has('nome') && $request->input('nome') != '') {
+            $query->where('nome', 'like', '%' . $request->input('nome') . '%');
+        }
+    
+        if ($request->has('cargo') && $request->input('cargo') != '') {
+            $query->where('cargo', 'like', '%' . $request->input('cargo') . '%');
+        }
+    
+        if ($request->has('perfil_acesso') && $request->input('perfil_acesso') != '') {
+            $query->where('perfil_acesso', $request->input('perfil_acesso'));
+        }
+    
+        // Recupera os funcionários filtrados
+        $funcionarios = $query->get();
+    
         return view('listaFuncionario', compact('funcionarios'));
     }
 
