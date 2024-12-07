@@ -10,6 +10,11 @@ class MovimentacaoFinanceiraController extends Controller
     // Exibe todas as movimentações
     public function index(Request $request)
     {
+
+        if (auth()->user()->perfil_acesso !== 'socio') {
+            return redirect('/')->with('msg', 'Você não tem permissão para acessar essa página.');
+        }
+
         $query = MovimentacaoFinanceira::query();
 
         // Filtra por tipo
@@ -43,12 +48,21 @@ class MovimentacaoFinanceiraController extends Controller
     // Exibe o formulário para criar uma nova movimentação
     public function create()
     {
+
+        if (auth()->user()->perfil_acesso !== 'socio') {
+            return redirect('/')->with('msg', 'Você não tem permissão para acessar essa página.');
+        }
+
         return view('cadastroMovimentacao');
     }
 
     // Armazena uma nova movimentação
     public function store(Request $request)
     {
+        if (auth()->user()->perfil_acesso !== 'socio') {
+            return redirect('/')->with('msg', 'Você não tem permissão para acessar essa página.');
+        }
+
         MovimentacaoFinanceira::create($request->all());
         return redirect('/movimentacoes')->with('success', 'Movimentação cadastrada com sucesso!');
     }
@@ -56,6 +70,11 @@ class MovimentacaoFinanceiraController extends Controller
     // Exibe o formulário de edição de uma movimentação
     public function edit($id)
     {
+
+        if (auth()->user()->perfil_acesso !== 'socio') {
+            return redirect('/')->with('msg', 'Você não tem permissão para acessar essa página.');
+        }
+
         $movimentacao = MovimentacaoFinanceira::findOrFail($id);
         return view('editaMovimentacao', compact('movimentacao'));
     }
@@ -63,6 +82,11 @@ class MovimentacaoFinanceiraController extends Controller
     // Atualiza uma movimentação existente
     public function update(Request $request, $id)
     {
+
+        if (auth()->user()->perfil_acesso !== 'socio') {
+            return redirect('/')->with('msg', 'Você não tem permissão para acessar essa página.');
+        }
+
         MovimentacaoFinanceira::findOrFail($id)->update($request->all());
         return redirect('/movimentacoes')->with('success', 'Movimentação atualizada com sucesso!');
     }
@@ -70,6 +94,11 @@ class MovimentacaoFinanceiraController extends Controller
     // Exclui uma movimentação
     public function destroy($id)
     {
+
+        if (auth()->user()->perfil_acesso !== 'socio') {
+            return redirect('/')->with('msg', 'Você não tem permissão para acessar essa página.');
+        }
+        
         MovimentacaoFinanceira::findOrFail($id)->delete();
         return redirect('/movimentacoes')->with('success', 'Movimentação excluída com sucesso!');
     }
