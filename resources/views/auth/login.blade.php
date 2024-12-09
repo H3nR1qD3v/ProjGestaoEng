@@ -5,7 +5,12 @@
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="card shadow-lg" style="width: 100%; max-width: 400px; background-color: #1e2a47; border-radius: 30px;">
             <div class="card-body p-5">
-                <h2 class="text-light mb-4 text-center">EngFlow</h2>
+                <div class="text-center mb-4 d-flex justify-content-center align-items-center">
+                    <!-- Logo -->
+                    <img src="{{ asset('images/engenharia (2).png') }}" alt="Logo" style="width: 50px; height: auto; margin-right: 10px; vertical-align: middle;">
+                    <!-- Nome do Sistema com fonte diferenciada -->
+                    <h2 class="text-light d-inline-block mb-0" style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 2rem; color: #4c9be1;">EngFlow</h2>
+                </div>
                 <p class="text-light text-center mb-5">Gerenciamento de Projetos de Engenharia</p>
                 
                 <form method="POST" action="{{ route('login') }}">
@@ -25,12 +30,9 @@
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
-                
-
-                        <x-primary-button class="ms-3 login-button">
-                            {{ __('Log in') }}
-                        </x-primary-button>
-                    </div>
+                    <x-primary-button class="ms-3 login-button">
+                        {{ __('Log in') }}
+                    </x-primary-button>
                 </form>
             </div>
         </div>
