@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Lista de Situações')
+@section('title', 'EngFlow - Situações')
 
 @section('content')
 <div class="container mt-5">
@@ -39,7 +39,7 @@
                             <a href="/situacoes/edit/{{ $situacao->id }}" class="btn btn-warning btn-sm">
                                 <i class="fas fa-edit"></i> Editar
                             </a>
-                            <form action="/situacoes/{{ $situacao->id }}" method="POST" style="display:inline;">
+                            <form action="/situacoes/{{ $situacao->id }}" method="POST" style="display:inline;" onsubmit="return confirmDeletion()">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">
@@ -53,5 +53,9 @@
         </table>
     </div>
 </div>
-
+<script>
+    function confirmDeletion() {
+        return confirm("Tem certeza que deseja excluir esta situação? Esta ação não pode ser desfeita.");
+    }
+</script>
 @endsection

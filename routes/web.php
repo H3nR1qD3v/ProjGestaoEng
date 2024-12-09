@@ -7,11 +7,12 @@ use App\Http\Controllers\ProjetoController;
 use App\Http\Controllers\SituacaoController;
 use App\Http\Controllers\TipoProjetoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('index');
+Route::get('/teste', function () {
+    return view('teste');  // Retorna a view "teste.blade.php"
 });
 
 // Rotas acessíveis apenas após autenticação
@@ -70,18 +71,16 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // DASHBOARD
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
 
     Route::post('/logout', function () {
         Auth::logout();
         return redirect('/'); // Redireciona para a página inicial após o logout
     })->name('logout');
 
-    Route::get('/', function () {
-        return view('index');
-    });
+    Route::get('/', [HomeController::class, 'index']);
 
     //FILTROS
 

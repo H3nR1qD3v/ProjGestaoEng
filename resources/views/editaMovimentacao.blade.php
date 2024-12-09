@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Editar Movimentação Financeira')
+@section('title', 'EngFlow - Edição Movimentação Financeira')
 
 @section('content')
     <div class="container mt-5">

@@ -1,6 +1,6 @@
 @extends('layout') <!-- Referência ao layout -->
 
-@section('title', 'Cadastro de Funcionário') <!-- Título da página -->
+@section('title', 'EngFlow - Cadastro Funcionário') <!-- Título da página -->
 
 @section('content') <!-- Conteúdo da página -->
     <div class="container mt-5">

@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'Sistema de Gerenciamento de Projetos')</title>
+    <title>@yield('title', 'EngFlow')</title>
 
-    <!-- Favicon da web -->
-    <link rel="icon" href="https://www.google.com/images/branding/product/ico/googleg_lodp.ico" type="image/x-icon">
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
-    <!-- Fonte Google Roboto e Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Fontes Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -18,12 +21,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Estilos Customizados -->
+    <!-- Estilos customizados -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            padding-top: 60px; /* Aumenta o espaço acima devido ao navbar compacto */
-            background-color: #f0f4f8; /* Cor mais suave para o background */
+            padding-top: 60px;
+            background-color: #f0f4f8;
             color: #333;
             min-height: 100vh;
             display: flex;
@@ -31,105 +34,98 @@
         }
 
         .navbar {
-            background-color: #6f42c1; /* Roxo para o cabeçalho */
+            background-color: #004085;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            padding: 5px 10px; /* Compacta a altura */
+            padding: 5px 10px;
         }
+
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.2rem; /* Ajusta o tamanho da fonte */
+            font-size: 1.2rem;
             color: #fff;
         }
+
         .navbar-brand img {
-            width: 25px; /* Ajusta o tamanho da imagem */
+            width: 50px;
             height: auto;
             margin-right: 8px;
         }
+
         .navbar-nav .nav-link {
             color: #fff !important;
             font-weight: 600;
         }
+
         .navbar-nav .nav-link:hover {
-            color: #ffdf00 !important; /* Amarelo para o hover */
+            color: #ffd700 !important;
         }
-        .navbar-nav .nav-link.active, .navbar-nav .nav-link.bold {
-            font-weight: 700; /* Negrito em links ativos ou "Home" */
-        }
-        footer {
-            background-color: #343a40; /* Cinza escuro para o rodapé */
-            color: #fff;
-            padding: 10px 0; /* Aumenta o espaço no rodapé */
-            margin-top: auto;
-        }
-        .footer-text {
-            font-size: 0.8rem;
-            color: #bbb; /* Cor mais suave para o texto */
-        }
-        .container {
-            margin-top: 20px;
-            padding-bottom: 50px;
-        }
-        .alert {
-            border-radius: 0.25rem;
-            margin-top: 20px;
-            background-color: #e3f2fd; /* Azul claro para alertas */
-            color: #1565c0; /* Azul escuro para texto */
-        }
-        .btn-logout {
-            border: 2px solid #ff9800; /* Laranja para borda do botão */
-            color: #ff9800;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 5px 12px;
-            background-color: transparent;
-            transition: all 0.3s ease;
-        }
-        .btn-logout:hover {
-            background-color: #ff9800;
-            color: white; /* Cor de fundo invertida no hover */
-        }
-        .card {
-            border: none;
-            border-radius: 12px; /* Bordas mais arredondadas */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            background-color: #ffffff;
-        }
-        .card-header {
-            background-color: #6f42c1; /* Roxo para o cabeçalho */
-            color: white;
+
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link.bold {
             font-weight: 700;
         }
-        .card-body {
-            background-color: #f9f9f9; /* Fundo suave para o conteúdo */
+
+        .btn-logout {
+            background-color: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 4px;
+            padding: 5px 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-align: center;
         }
-        .nav-item {
-            margin-right: 20px;
+
+        .btn-logout:hover {
+            background-color: #ffd700;
+            color: #004085;
         }
-        @media (max-width: 768px) {
-            .navbar-nav {
-                text-align: center;
-            }
-            .navbar-nav .nav-item {
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
+
+        footer {
+            background-color: #004085;
+            color: #fff;
+            padding: 15px 0;
+            margin-top: auto;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .flash-message {
+            margin-top: 80px;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-logout-align {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
         }
     </style>
 </head>
-<body>
 
+<body>
     <!-- Cabeçalho -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="https://via.placeholder.com/20" alt="Logo">
+            <a class="navbar-brand" href="/">
+                <img src="{{ asset('images/engenharia (2).png') }}" alt="Logo">
                 EngFlow
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -144,7 +140,6 @@
                         <a class="nav-link" href="/clientes">Clientes</a>
                     </li>
 
-                    <!-- Links de Funcionários e Finanças visíveis apenas para sócios -->
                     @if(auth()->user()->perfil_acesso === 'socio')
                         <li class="nav-item">
                             <a class="nav-link" href="/funcionarios">Funcionários</a>
@@ -161,8 +156,7 @@
                         <a class="nav-link" href="/tipos-projeto">Tipos de Projeto</a>
                     </li>
 
-                    <!-- Botão de logout -->
-                    <li class="nav-item">
+                    <li class="nav-item btn-logout-align">
                         <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                             @csrf
                             <button type="submit" class="btn btn-logout">Sair</button>
@@ -172,18 +166,18 @@
             </div>
         </div>
     </nav>
+    <!-- Flash Message -->
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 80px;">
+            <strong>{{ session('success') }}</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
-    <!-- Conteúdo -->
-    <div class="container mt-4">
-        <!-- Flash message -->
-        @if(session('msg'))
-            <div class="alert alert-info">
-                {{ session('msg') }}
-            </div>
-        @endif
-
+    <!-- Conteúdo dinâmico -->
+    <main class="container mt-4">
         @yield('content')
-    </div>
+    </main>
 
     <!-- Rodapé -->
     <footer class="text-center">
@@ -192,7 +186,11 @@
         </div>
     </footer>
 
+    
+
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Cadastrar Cliente')
+@section('title', 'EngFlow - Cadastro Cliente')
 
 @section('content')
     <div class="container mt-5">

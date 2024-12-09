@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Editar Tipo de Projeto')
+@section('title', 'EngFlow - Edição Tipo de Projeto')
 
 @section('content')
 <div class="container mt-5">

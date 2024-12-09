@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Clientes')
+@section('title', 'EngFlow - Clientes')
 
 @section('content')
 <div class="container mt-5">
@@ -65,7 +65,7 @@
                             <a href="/clientes/edit/{{ $cliente->id }}" class="btn btn-warning btn-sm">
                                 <i class="fas fa-edit"></i> Editar
                             </a>
-                            <form action="/clientes/{{ $cliente->id }}" method="POST" style="display:inline;">
+                            <form action="/clientes/{{ $cliente->id }}" method="POST" style="display:inline;" onsubmit="return confirmDeletion()">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">
@@ -79,5 +79,11 @@
         </table>
     </div>
 </div>
+
+<script>
+    function confirmDeletion() {
+        return confirm("Tem certeza que deseja excluir este funcionário? Esta ação não pode ser desfeita.");
+    }
+</script>
 
 @endsection

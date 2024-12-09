@@ -36,7 +36,7 @@ class TipoProjetoController extends Controller
         $tipo->descricao_tipo = $request->input('descricao_tipo');
         $tipo->save();
 
-        return redirect('/tipos-projeto');
+        return redirect('/tipos-projeto')->with('success', 'Tipo de projeto cadastrado com sucesso!');
     }
 
     public function edit($id)
@@ -49,13 +49,13 @@ class TipoProjetoController extends Controller
     public function update(Request $request)
     {
         TipoProjeto::findOrFail($request->id)->update($request->all());
-        return redirect('/tipos-projeto');
+        return redirect('/tipos-projeto')->with('success', 'Tipo de projeto atualizado com sucesso!');
     }
 
     // Exclui um registro
     public function destroy($id)
     {
         TipoProjeto::findOrFail($id)->delete();
-        return redirect('/tipos-projeto');
+        return redirect('/tipos-projeto')->with('success', 'Tipo de projeto excluído com sucesso!');
     }
 }

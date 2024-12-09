@@ -9,41 +9,41 @@ class ClienteController extends Controller
 {
     // Exibe uma lista de todos os clientes
     public function index(Request $request)
-{
-    $clientes = Cliente::query();
+    {
+        $clientes = Cliente::query();
 
-    if ($request->filled('nome')) {
-        $clientes->where('nome', 'like', '%' . $request->nome . '%');
+        if ($request->filled('nome')) {
+            $clientes->where('nome', 'like', '%' . $request->nome . '%');
+        }
+
+        if ($request->filled('cpf')) {
+            $clientes->where('cpf', 'like', '%' . $request->cpf . '%');
+        }
+
+        if ($request->filled('telefone')) {
+            $clientes->where('telefone', 'like', '%' . $request->telefone . '%');
+        }
+
+        if ($request->filled('data_nascimento')) {
+            $clientes->whereDate('data_nascimento', '=', $request->data_nascimento);
+        }
+
+        if ($request->filled('data_cadastro')) {
+            $clientes->whereDate('data_cadastro', '=', $request->data_cadastro);
+        }
+
+        $clientes = $clientes->get();
+
+        return view('listaCliente', compact('clientes'));
     }
 
-    if ($request->filled('cpf')) {
-        $clientes->where('cpf', 'like', '%' . $request->cpf . '%');
-    }
-
-    if ($request->filled('telefone')) {
-        $clientes->where('telefone', 'like', '%' . $request->telefone . '%');
-    }
-
-    if ($request->filled('data_nascimento')) {
-        $clientes->whereDate('data_nascimento', '=', $request->data_nascimento);
-    }
-
-    if ($request->filled('data_cadastro')) {
-        $clientes->whereDate('data_cadastro', '=', $request->data_cadastro);
-    }
-
-    $clientes = $clientes->get();
-
-    return view('listaCliente', compact('clientes'));
-}
     // Criação de Clientes
     public function create()
     {
         return view('cadastroCliente');
     }
 
-
-    //Armazena novo cliente
+    // Armazena novo cliente
     public function store(Request $request)
     {
         $cliente = new Cliente();
@@ -63,31 +63,32 @@ class ClienteController extends Controller
 
         $cliente->save();
 
-        //return redirect()->route('listaCliente')->with('sucess', 'Cliente cadastrado com sucesso!');
-        return redirect('/');
-
+        // Adiciona uma flash message
+        return redirect('/clientes')->with('success', 'Cliente cadastrado com sucesso!');
     }
 
-
+    // Edita cliente existente
     public function edit($id)
     {
         $cliente = Cliente::findOrFail($id);
-        return view('editaCliente', ['cliente'=> $cliente]);
+        return view('editaCliente', ['cliente' => $cliente]);
     }
 
-    //Atualiza um registro
+    // Atualiza um registro
     public function update(Request $request)
     {
         Cliente::findOrFail($request->id)->update($request->all());
 
-            //return redirect()->route('listaCliente')->with('sucess','Cliente atualizado com sucesso!');
-            return redirect('/');
+        // Adiciona uma flash message
+        return redirect('/clientes')->with('success', 'Cliente atualizado com sucesso!');
     }
 
-    //Exclui um registro
+    // Exclui um registro
     public function destroy($id)
     {
         Cliente::findOrFail($id)->delete();
-        return redirect('/clientes');
+
+        // Adiciona uma flash message
+        return redirect('/clientes')->with('success', 'Cliente excluído com sucesso!');
     }
 }
