@@ -35,7 +35,7 @@
                         <th>
                             <select name="perfil_acesso" class="form-control">
                                 <option value="">Todos</option>
-                                <option value="admin" {{ request('perfil_acesso') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="socio" {{ request('perfil_acesso') == 'socio' ? 'selected' : '' }}>Sócio</option>
                                 <option value="funcionario" {{ request('perfil_acesso') == 'funcionario' ? 'selected' : '' }}>Funcionário</option>
                             </select>
                         </th>

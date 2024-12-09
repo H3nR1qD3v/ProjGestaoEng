@@ -19,6 +19,8 @@
                     <th>Telefone</th>
                     <th>Data Nascimento</th>
                     <th>Data Cadastro</th>
+                    <th>Cidade</th> <!-- Nova coluna -->
+                    <th>Rua</th>    <!-- Nova coluna -->
                     <th>Ações</th>
                 </tr>
                 <tr>
@@ -38,6 +40,12 @@
                         </th>
                         <th>
                             <input type="date" name="data_cadastro" class="form-control" value="{{ request('data_cadastro') }}">
+                        </th>
+                        <th>
+                            <input type="text" name="cidade" class="form-control" placeholder="Buscar cidade" value="{{ request('cidade') }}">
+                        </th>
+                        <th>
+                            <input type="text" name="rua" class="form-control" placeholder="Buscar rua" value="{{ request('rua') }}">
                         </th>
                         <th>
                             <button type="submit" class="btn btn-primary w-100">
@@ -61,6 +69,9 @@
                         </td>
                         <td class="text-center">{{ \Carbon\Carbon::parse($cliente->data_nascimento)->format('d/m/Y') }}</td>
                         <td class="text-center">{{ \Carbon\Carbon::parse($cliente->data_cadastro)->format('d/m/Y') }}</td>
+                        <!-- Exibindo cidade e rua -->
+                        <td class="text-center">{{ $cliente->cidade }}</td>
+                        <td class="text-center">{{ $cliente->rua }}</td>
                         <td class="text-center">
                             <a href="/clientes/edit/{{ $cliente->id }}" class="btn btn-warning btn-sm">
                                 <i class="fas fa-edit"></i> Editar
@@ -82,7 +93,7 @@
 
 <script>
     function confirmDeletion() {
-        return confirm("Tem certeza que deseja excluir este funcionário? Esta ação não pode ser desfeita.");
+        return confirm("Tem certeza que deseja excluir este cliente? Esta ação não pode ser desfeita.");
     }
 </script>
 

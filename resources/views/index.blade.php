@@ -178,11 +178,11 @@
 
     <!-- Conteúdo -->
     <div class="container">
-        <h1 class="text-center my-4">Relatórios Gráficos</h1>
+        <h1 class="text-center my-4">Dashboard</h1>
 
         <div class="row">
             <div class="col-md-6 chart-container">
-                <h3 class="text-center">Distribuição de Tipos de Projetos</h3>
+                <h3 class="text-center">Projetos por Tipo</h3>
                 <canvas id="pizzaChart"></canvas>
             </div>
 

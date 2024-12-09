@@ -70,10 +70,10 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // DASHBOARD
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
+    //DASHBOARD
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
     Route::post('/logout', function () {
         Auth::logout();
